@@ -1,259 +1,170 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<title>Agent Create API Mulesoft · Chat</title>
+<meta charset="UTF-8">
+<title>Agent Create API Mulesoft</title>
 <style>
     body {
-        background: #020617;
-        font-family: "Segoe UI", sans-serif;
-        color: #e2e8f0;
+        background: #0d1117;
+        font-family: Arial;
         margin: 0;
         padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        overflow: hidden;
+        color: #fff;
     }
 
-    .chat-container {
-        width: 82vw;
-        height: 88vh;
-        background: #0f172a;
+    .container {
+        width: 80%;
+        margin: auto;
+        margin-top: 40px;
+        background: #111827;
         border-radius: 18px;
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-        border: 1px solid #1e293b;
-        box-shadow: 0 0 25px rgba(0,0,0,0.45);
+        padding-bottom: 40px;
     }
 
     .header {
+        background: linear-gradient(90deg, #00bcd4, #006778);
+        padding: 25px;
+        border-radius: 18px 18px 0 0;
         display: flex;
         align-items: center;
-        padding: 18px 26px;
-        border-bottom: 1px solid #1e293b;
-        background: radial-gradient(circle at top left, #0ea5e9, #020617);
+        gap: 15px;
     }
 
-    .logo {
-        width: 52px;
-        height: 52px;
-        border-radius: 12px;
-        margin-right: 16px;
-        box-shadow: 0 0 16px #0ea5e9;
+    .header img {
+        width: 60px;
     }
 
-    .title-block {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .title-main {
-        font-size: 20px;
+    .title {
+        font-size: 28px;
         font-weight: bold;
-        color: #38bdf8;
     }
 
-    .title-sub {
-        font-size: 13px;
-        color: #cbd5f5;
-    }
-
-    .chat-wrapper {
-        flex: 1;
-        padding: 18px;
-        display: flex;
-        flex-direction: column;
-    }
-
-    #messages {
-        flex: 1;
-        overflow-y: auto;
-        padding-right: 5px;
-        display: flex;
-        flex-direction: column;
-        gap: 14px;
-    }
-
-    .bubble {
-        max-width: 75%;
-        padding: 12px 16px;
-        border-radius: 12px;
-        line-height: 1.4;
+    .subtitle {
         font-size: 15px;
-        white-space: pre-wrap;
+        opacity: 0.9;
+        margin-top: -5px;
     }
 
-    .user {
-        align-self: flex-end;
-        background: #0ea5e9;
-        color: #0b1120;
-        border-bottom-right-radius: 2px;
-        font-weight: 500;
-    }
-
-    .bot {
-        align-self: flex-start;
-        background: #1e293b;
-        border-bottom-left-radius: 2px;
-        border: 1px solid rgba(148, 163, 184, 0.6);
-    }
-
-    .typing {
-        padding: 12px 16px;
-        background: #1e293b;
-        border-radius: 12px;
-        width: 70px;
-        color: #94a3b8;
-        display: flex;
-        gap: 4px;
-    }
-
-    .dot {
-        width: 8px;
-        height: 8px;
-        background: #94a3b8;
-        border-radius: 50%;
-        animation: blink 1.4s infinite;
-    }
-
-    .dot:nth-child(2) { animation-delay: 0.2s; }
-    .dot:nth-child(3) { animation-delay: 0.4s; }
-
-    @keyframes blink {
-        0% { opacity: 0.2; }
-        50% { opacity: 1; }
-        100% { opacity: 0.2; }
-    }
-
-    .input-box {
+    .file-panel {
+        margin: 25px;
         display: flex;
         gap: 12px;
-        padding-top: 14px;
-        border-top: 1px solid #1e293b;
-    }
-
-    input {
-        flex: 1;
-        padding: 12px;
-        border-radius: 8px;
-        border: none;
-        background: #020617;
-        color: #e2e8f0;
-        font-size: 15px;
-        outline: none;
+        align-items: center;
+        background: #1e293b;
+        padding: 18px;
+        border-radius: 12px;
     }
 
     button {
-        padding: 12px 18px;
-        background: #38bdf8;
+        background: #0ea5e9;
+        padding: 10px 18px;
+        border-radius: 10px;
         border: none;
-        border-radius: 8px;
-        color: #020617;
-        font-size: 15px;
         cursor: pointer;
-        font-weight: 600;
-        box-shadow: 0 0 14px #0ea5e9;
+        color: white;
+        font-weight: bold;
     }
 
     button:hover {
-        background: #0ea5e9;
+        background: #0284c7;
+    }
+
+    #downloadSection {
+        margin-top: 20px;
+        text-align: center;
+    }
+
+    .download-btn {
+        background: #10b981;
+        padding: 15px 25px;
+        text-decoration: none;
+        font-weight: bold;
+        border-radius: 12px;
+        color: white;
+        font-size: 16px;
+    }
+
+    .download-btn:hover {
+        background: #059669;
     }
 </style>
 </head>
+
 <body>
 
-<div class="chat-container">
+<div class="container">
 
-    <header class="header">
-        <img class="logo" 
-             src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/3c/a8/68/3ca86816-6029-891b-4f8c-1dfb7c72a5d6/AppIcon-0-1x_U007ephone-0-1-0-sRGB-85-220-0.png/200x200ia-75.webp"
-             alt="BanCoppel Logo">
-        <div class="title-block">
-            <div class="title-main">Agent Create API Mulesoft</div>
-            <div class="title-sub">Orquestación · Proyecto Mule</div>
+    <div class="header">
+        <img src="../assets/mule.png">
+        <div>
+            <div class="title">Agent Create API Mulesoft</div>
+            <div class="subtitle">Orquestación · Proyecto Mule</div>
         </div>
-    </header>
+    </div>
 
-    <div class="chat-wrapper">
-        <div id="messages"></div>
+    <div class="file-panel">
+        <input type="file" id="fileInput">
+        <button onclick="uploadFile()">Subir archivo</button>
+        <button onclick="generateMule()">Generar Mule</button>
+    </div>
 
-        <div class="input-box">
-            <input id="msg" placeholder="Escribe tu mensaje…" />
-            <button onclick="sendMessage()">Enviar</button>
-        </div>
+    <div id="downloadSection" style="display:none;">
+        <a id="downloadLink" href="#" download class="download-btn">
+            Descargar Proyecto Mule (ZIP)
+        </a>
     </div>
 
 </div>
 
 <script>
-const API_URL = "https://galeria-agentes.onrender.com/api/chat";
+const API_BASE = "https://galeria-agentes.onrender.com";
+let currentFileId = null;
 
-function scrollDown() {
-    const box = document.getElementById("messages");
-    box.scrollTop = box.scrollHeight;
-}
+// ==============================
+// SUBIR ARCHIVO
+// ==============================
+async function uploadFile() {
+    const file = document.getElementById("fileInput").files[0];
 
-function addBubble(text, type) {
-    const div = document.createElement("div");
-    div.className = `bubble ${type}`;
-    div.textContent = text;
-    document.getElementById("messages").appendChild(div);
-    scrollDown();
-}
-
-function addTyping() {
-    const wrapper = document.createElement("div");
-    wrapper.id = "typingIndicator";
-    wrapper.className = "typing";
-    wrapper.innerHTML = `
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-    `;
-    document.getElementById("messages").appendChild(wrapper);
-    scrollDown();
-}
-
-function removeTyping() {
-    const el = document.getElementById("typingIndicator");
-    if (el) el.remove();
-}
-
-async function sendMessage() {
-    const input = document.getElementById("msg");
-    const text = input.value.trim();
-    if (!text) return;
-
-    addBubble(text, "user");
-    input.value = "";
-
-    addTyping();
-
-    try {
-        const response = await fetch(API_URL, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                message: text,
-                agent: "mule"
-            })
-        });
-        const data = await response.json();
-        removeTyping();
-        if (data.reply) addBubble(data.reply, "bot");
-        else addBubble("Error: respuesta inválida del servidor.", "bot");
-    } catch (err) {
-        removeTyping();
-        addBubble("Error de conexión con Render.", "bot");
+    if (!file) {
+        alert("Selecciona un archivo primero.");
+        return;
     }
+
+    const formData = new FormData();
+    formData.append("file", file);
+
+    const res = await fetch(`${API_BASE}/api/upload`, {
+        method: "POST",
+        body: formData
+    });
+
+    const data = await res.json();
+    currentFileId = data.file_id;
+
+    alert("Archivo cargado correctamente.");
 }
 
-document.getElementById("msg").addEventListener("keydown", e => {
-    if (e.key === "Enter") sendMessage();
-});
+// ==============================
+// GENERAR PROYECTO MULE
+// ==============================
+async function generateMule() {
+    if (!currentFileId) {
+        alert("Primero sube un archivo.");
+        return;
+    }
+
+    const res = await fetch(
+        `${API_BASE}/api/generate/mule?file_id=${currentFileId}`,
+        { method: "POST" }
+    );
+
+    const data = await res.json();
+    const downloadUrl = `${API_BASE}${data.download_url}`;
+
+    document.getElementById("downloadLink").href = downloadUrl;
+    document.getElementById("downloadSection").style.display = "block";
+}
 </script>
 
 </body>
